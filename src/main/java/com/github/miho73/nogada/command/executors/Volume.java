@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 
 public class Volume implements CommandExecutor {
     @Override
-    public void Execute(CommandSender sender, String label, String[] args) {
+    public boolean Execute(CommandSender sender, String label, String[] args) {
         if(Root.Point1 == null || Root.Point2 == null) {
             sender.sendMessage(ChatColor.YELLOW + "You must set the region first!");
         }
@@ -18,5 +18,6 @@ public class Volume implements CommandExecutor {
                 (Math.abs((int)Root.Point2.getZ()-(int)Root.Point1.getZ())+1)
             + " blocks are in the region");
         }
+        return true;
     }
 }

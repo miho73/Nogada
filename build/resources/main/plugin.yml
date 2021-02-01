@@ -1,9 +1,33 @@
 name: Nogada
 main: com.github.miho73.nogada.Main
 version: 0.1.0
+api-version: 1.16
+load: POSTWORLD
+website: https://github.com/miho73/Nogada
 author: miho
 
 commands:
-  search:
-    description: Check blocks around you
-    usage: /search
+  analysis:
+    description: Check blocks around you.
+    usage: /anaysis
+  volume:
+    description: Show you the volume selected region.
+    usage: /volume
+  pos1:
+    description: Set the first position to your position.
+    usage: /pos1 [x, y, z coordinate]
+  pos2:
+    description: Set the second position to your position.
+    usage: /pos2 [x, y, z coordinate]
+  reg_clr:
+    description: Clear the set region
+    usage: /reg_clr
+  flat:
+    description: Flat the region
+    usage: /flat [target altitude]
+  lumber:
+    description: Cut off the trees in the region
+    usage: /lumber
+  bfs:
+    description: Calculate how many blocks are adjacent from start block.
+    usage: /bfs [x] [y] [z]

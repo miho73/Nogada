@@ -1,6 +1,6 @@
 package com.github.miho73.nogada;
 
-import com.github.miho73.nogada.lib.Compare;
+import com.github.miho73.nogada.lib.PointCalc;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -14,7 +14,7 @@ public class Event implements Listener {
         if (event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_AXE) {
                 event.setCancelled(true);
-                if (Compare.CompareLocation(Root.Point1, event.getClickedBlock().getLocation())) {
+                if (PointCalc.CompareLocation(Root.Point1, event.getClickedBlock().getLocation())) {
                     return;
                 }
                 else {
@@ -27,7 +27,7 @@ public class Event implements Listener {
         else if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_AXE) {
                 event.setCancelled(true);
-                if (Compare.CompareLocation(Root.Point2, event.getClickedBlock().getLocation())) {
+                if (PointCalc.CompareLocation(Root.Point2, event.getClickedBlock().getLocation())) {
                     return;
                 }
                 else {
