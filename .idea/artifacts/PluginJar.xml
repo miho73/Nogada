@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="PluginJar">
+    <output-path>$PROJECT_DIR$/../../PluginTestServer/plugins</output-path>
+    <root id="archive" name="PluginJar.jar">
+      <element id="module-output" name="Nogada.main" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>

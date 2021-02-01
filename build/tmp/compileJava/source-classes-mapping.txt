@@ -1,0 +1,2 @@
+com/github/miho273/nogada/Main.java
+ com.github.miho273.nogada.Main

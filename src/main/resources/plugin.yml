@@ -1,0 +1,18 @@
+name: Nogada
+main: com.github.miho73.nogada.Main
+version: 0.1.0
+author: miho
+
+commands:
+  search:
+    description: Check blocks around you.
+    usage: /search
+  volume:
+    description: Show you the volume selected region.
+    usage: /volume
+  pos1:
+    description: Set the first position to your position.
+    usage: /pos1 [x, y, z coordinate]
+  pos2:
+    description: Set the second position to your position.
+    usage: /pos2 [x, y, z coordinate]

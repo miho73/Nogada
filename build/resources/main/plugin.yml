@@ -1,0 +1,9 @@
+name: Nogada
+main: com.github.miho73.nogada.Main
+version: 0.1.0
+author: miho
+
+commands:
+  search:
+    description: Check blocks around you
+    usage: /search
