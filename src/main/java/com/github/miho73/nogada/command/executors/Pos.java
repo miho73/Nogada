@@ -13,12 +13,12 @@ public class Pos {
         @Override
         public boolean Execute(CommandSender sender, String label, String[] args) {
             if (PointCalc.CompareLocation(Root.Point1, ((Player)sender).getLocation())) {
-                return true;
             }
             else {
                 Root.Point1 = ((Player)sender).getLocation();
                 sender.sendMessage(ChatColor.LIGHT_PURPLE +
                         "First point set to (" + (int) Root.Point1.getX() + ", " + (int) Root.Point1.getY() + ", " + (int) Root.Point1.getZ() + ")");
+                Root.DidEstimate = false;
             }
             return true;
         }
@@ -27,14 +27,14 @@ public class Pos {
         @Override
         public boolean Execute(CommandSender sender, String label, String[] args) {
             if (PointCalc.CompareLocation(Root.Point1, ((Player)sender).getLocation())) {
-                return true;
             }
             else {
                 Root.Point2 = ((Player)sender).getLocation();
                 sender.sendMessage(ChatColor.LIGHT_PURPLE +
                         "Second point set to (" + (int) Root.Point2.getX() + ", " + (int) Root.Point2.getY() + ", " + (int) Root.Point2.getZ() + ")");
-                return true;
+                Root.DidEstimate = false;
             }
+            return true;
         }
     }
     public static class ClaerPoint implements CommandExecutor {
@@ -43,6 +43,7 @@ public class Pos {
             Root.Point1 = null;
             Root.Point2 = null;
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Region cleared");
+            Root.DidEstimate = false;
             return true;
         }
     }

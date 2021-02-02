@@ -21,6 +21,7 @@ public class Event implements Listener {
                     Root.Point1 = event.getClickedBlock().getLocation();
                     event.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE +
                             "First point set to (" + (int) Root.Point1.getX() + ", " + (int) Root.Point1.getY() + ", " + (int) Root.Point1.getZ() + ")");
+                    Root.DidEstimate = false;
                 }
             }
         }
@@ -34,6 +35,7 @@ public class Event implements Listener {
                     Root.Point2 = event.getClickedBlock().getLocation();
                     event.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE +
                             "Second point set to (" + (int) Root.Point2.getX() + ", " + (int) Root.Point2.getY() + ", " + (int) Root.Point2.getZ() + ")");
+                    Root.DidEstimate = false;
                 }
             }
         }

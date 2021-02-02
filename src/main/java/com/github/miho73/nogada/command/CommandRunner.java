@@ -16,6 +16,8 @@ public class CommandRunner {
         CommandRegistry.put("lumber", new Lumber());
         CommandRegistry.put("flat", new Flat());
         CommandRegistry.put("bfs", new SpaceBFS());
+        CommandRegistry.put("dry", new Dry());
+        CommandRegistry.put("estimate", new Estimate());
     }
 
     private Hashtable<String, CommandExecutor> CommandRegistry = new Hashtable<String, CommandExecutor>();

@@ -31,3 +31,9 @@ commands:
   bfs:
     description: Calculate how many blocks are adjacent from start block.
     usage: /bfs [x] [y] [z]
+  dry:
+    description: Eleminate all waters in the region
+    usage: /dry
+  estimate:
+    description: Estimate how many blocks you will need to flat the region
+    usage: /estimate [target altitude]
