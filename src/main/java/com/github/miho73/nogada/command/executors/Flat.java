@@ -10,16 +10,13 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Objects;
 import java.util.Vector;
-import java.util.function.Function;
 
 public class Flat implements CommandExecutor {
     @Override
@@ -32,7 +29,7 @@ public class Flat implements CommandExecutor {
                 sender.sendMessage(ChatColor.YELLOW + "Usage: /flat [target altitude]");
                 return true;
             }
-            if(!Root.DidEstimate) {
+            if(!Root.DidEstimate && !sender.isOp()) {
                 sender.sendMessage(ChatColor.YELLOW + "You must get all-green in estimate first.\nType \"/estimate [target altitude]\" to get estimate");
                 return true;
             }
@@ -62,13 +59,14 @@ public class Flat implements CommandExecutor {
                                 Material.TALL_SEAGRASS,
                                 Material.KELP,
                                 Material.SEAGRASS
-                            }, (Root.Point1.getWorld()));
+                            }, (Objects.requireNonNull(Root.Point1.getWorld())));
                             if(volume == SpaceBFS.BLOCK_THRESHOLD) {
                                 FlagSetBlockOnAltitude = false;
                                 break;
                             }
                         }
                         if(FlagSetBlockOnAltitude) {
+                            assert world != null;
                             Material TargetAltitudeBlk = world.getBlockAt(i, altitude, k).getType();
                             if(TargetAltitudeBlk != Material.DIRT && TargetAltitudeBlk != Material.GRASS_BLOCK && TargetAltitudeBlk != Material.SAND) {
                                 world.getBlockAt(i, altitude, k).setType(Material.DIRT);
@@ -92,29 +90,30 @@ public class Flat implements CommandExecutor {
                         //If it is above the sea, leave it as it was
                     }
                 }
-                StringBuilder sb = new StringBuilder();
-                Enumeration<Material> keys = Required.keys();
-                ItemStack[] diffSub;
-                ItemStack[] diffAdd;
-                Vector<ItemStack> AddTmp = new Vector<>();
-                Vector<ItemStack> SubTmp = new Vector<>();
-                while(keys.hasMoreElements()) {
-                    Material met = keys.nextElement();
-                    int blks = Required.get(met);
-                    if(Required.get(met) >= 0){
-                        AddTmp.add(new ItemStack(met, blks));
+                if(!sender.isOp()) {
+                    Enumeration<Material> keys = Required.keys();
+                    ItemStack[] diffSub;
+                    ItemStack[] diffAdd;
+                    Vector<ItemStack> AddTmp = new Vector<>();
+                    Vector<ItemStack> SubTmp = new Vector<>();
+                    while(keys.hasMoreElements()) {
+                        Material met = keys.nextElement();
+                        int blks = Required.get(met);
+                        if(Required.get(met) >= 0){
+                            AddTmp.add(new ItemStack(met, blks));
+                        }
+                        if(Required.get(met) < 0){
+                            SubTmp.add(new ItemStack(met, -blks));
+                        }
                     }
-                    if(Required.get(met) < 0){
-                        SubTmp.add(new ItemStack(met, -blks));
-                    }
+                    Player sentPlayer = (Player)sender;
+                    diffAdd = new ItemStack[AddTmp.size()];
+                    diffSub = new ItemStack[SubTmp.size()];
+                    diffAdd = AddTmp.toArray(diffAdd);
+                    diffSub = SubTmp.toArray(diffSub);
+                    sentPlayer.getInventory().addItem(diffAdd);
+                    sentPlayer.getInventory().removeItem(diffSub);
                 }
-                Player sentPlayer = (Player)sender;
-                diffAdd = new ItemStack[AddTmp.size()];
-                diffSub = new ItemStack[SubTmp.size()];
-                diffAdd = (ItemStack[]) AddTmp.toArray(diffAdd);
-                diffSub = (ItemStack[]) SubTmp.toArray(diffSub);
-                sentPlayer.getInventory().addItem(diffAdd);
-                sentPlayer.getInventory().removeItem(diffSub);
                 sender.sendMessage(ChatColor.LIGHT_PURPLE+"Well done!");
                 Root.DidEstimate = false;
             } catch (NumberFormatException e) {
@@ -124,18 +123,13 @@ public class Flat implements CommandExecutor {
         return true;
     }
     private Material MaterialMatcher(Material origin) {
-        switch (origin) {
-            case STONE:
-                return Material.COBBLESTONE;
-            case GRASS_BLOCK:
-                return Material.WATER.DIRT;
-            case COAL_ORE:
-                return Material.COAL;
-            case LAPIS_ORE:
-                return Material.LAPIS_LAZULI;
-            case DIAMOND_ORE:
-                return Material.DIAMOND;
-        }
-        return origin;
+        return switch (origin) {
+            case STONE -> Material.COBBLESTONE;
+            case GRASS_BLOCK -> Material.DIRT;
+            case COAL_ORE -> Material.COAL;
+            case LAPIS_ORE -> Material.LAPIS_LAZULI;
+            case DIAMOND_ORE -> Material.DIAMOND;
+            default -> origin;
+        };
     }
 }

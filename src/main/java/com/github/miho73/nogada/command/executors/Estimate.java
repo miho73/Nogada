@@ -82,27 +82,27 @@ public class Estimate implements CommandExecutor {
                 StringBuilder sb = new StringBuilder();
                 Enumeration<Material> keys = Required.keys();
                 Player sent = (Player)sender;
-                boolean EstSucess = true;
+                boolean EstSuccess = true;
                 while(keys.hasMoreElements()) {
                     Material met = keys.nextElement();
-                    int blks = Required.get(met);
-                    if(blks == 0) continue;
-                    else if(blks >= 0) {
-                        sb.append(ChatColor.GREEN + met.toString()+": +" + blks + "\n");
+                    int blocks = Required.get(met);
+                    if(blocks == 0) continue;
+                    else if(blocks >= 0) {
+                        sb.append(ChatColor.GREEN + met.toString()+": +" + blocks + "\n");
                     }
                     else {
                         int MetAmount = QueryInventory(met, sent);
-                        if(MetAmount >= -blks) {
-                            sb.append(ChatColor.GREEN + met.toString()+": " + MetAmount + " / " + (-blks) + "\n");
+                        if(MetAmount >= -blocks) {
+                            sb.append(ChatColor.GREEN + met.toString()+": " + MetAmount + " / " + (-blocks) + "\n");
                         }
                         else {
-                            sb.append(ChatColor.RED + met.toString()+": " + MetAmount + " / " + (-blks) + "\n");
-                            EstSucess = false;
+                            sb.append(ChatColor.RED + met.toString()+": " + MetAmount + " / " + (-blocks) + "\n");
+                            EstSuccess = false;
                         }
                     }
                 }
                 sender.sendMessage(sb.toString());
-                Root.DidEstimate = EstSucess;
+                Root.DidEstimate = EstSuccess;
             } catch (NumberFormatException e) {
                 sender.sendMessage(ChatColor.RED + "Cannot parse altitude: " + args[0]);
             }
@@ -126,8 +126,8 @@ public class Estimate implements CommandExecutor {
     }
     private int QueryInventory(Material material, Player target) {
         int cnt = 0;
-        ItemStack[] stacktarget = target.getInventory().getContents();
-        for(ItemStack stack : stacktarget) {
+        ItemStack[] stacking = target.getInventory().getContents();
+        for(ItemStack stack : stacking) {
             if(stack == null) continue;
             if(stack.getType() == material) {
                 cnt += stack.getAmount();

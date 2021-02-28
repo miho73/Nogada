@@ -12,7 +12,7 @@ public class Event implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
-            if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_AXE) {
+            if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_SHOVEL) {
                 event.setCancelled(true);
                 if (PointCalc.CompareLocation(Root.Point1, event.getClickedBlock().getLocation())) {
                     return;
@@ -26,7 +26,7 @@ public class Event implements Listener {
             }
         }
         else if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-            if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_AXE) {
+            if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOODEN_SHOVEL) {
                 event.setCancelled(true);
                 if (PointCalc.CompareLocation(Root.Point2, event.getClickedBlock().getLocation())) {
                     return;
